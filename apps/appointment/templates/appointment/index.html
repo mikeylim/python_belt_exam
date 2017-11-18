@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointments</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'appointment/index.css' %}">
+</head>
+<body>
+    <div class="header">
+        <h1>Hello, {{ request.session.name }}</h1>
+        <a href="/logout">logout</a>
+    </div>
+    
+    <div class="main_content">
+        <div class="table1">
+            <p>Here are your today's appointments, {{ current_time }}:</p>
+            
+                <table>                
+                    <tr>                    
+                        <th>Tasks</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Action</th>                    
+                    </tr>
+                        {% for info in appointments %}
+                        <tr>                    
+                            <td>{{ info.appointment }}</td>
+                            <td>{{ info.time }}</td>
+                            <td>{{ info.status }}</td>
+                            <td><a href="/edit">Edit</a> <a href="/delete">Delete</a></td>               
+                        </tr>
+                        {% endfor %}
+                </table>
+            
+            
+        </div>
+        <br>
+        <div>
+            <p>Your future appointments:</p>
+            <table>
+                <tr>
+                    <th>Tasks</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+                {% if current_time != appointments.date %}
+                    {% for info in appointments %}
+                    <tr>                
+                        <td>{{ info.appointment }}</td>
+                        <td>{{ info.date }}</td>                    
+                        <td>{{ info.time }}</td>                        
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+            </table>
+        </div>
+
+        <div>
+            <br>
+            <p>Add Appointment</p>
+            <form action="/appointment/addAppointment" method="post">
+                {% csrf_token %}
+                <label for="appointment">Tasks:</label><input type="text" name="appointment">
+                <br>
+                <label for="date">Date:</label><input type="date" name="date">
+                <br>
+                <label for="time">Time:</label><input type="time" name="time">
+                <br>
+                <input type="submit" value="Add">
+            </form>
+        </div>
+    </div>
+
+    
+</body>
+</html>

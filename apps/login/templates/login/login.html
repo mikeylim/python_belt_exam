@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'login/login_style.css '%}">
+    <title>Login</title>
+</head>
+<body>
+    <div class="wrapper">
+        <h1>Login</h1>
+        {% if messages %}
+            {% for msg in messages %}
+                <p class="error">{{ msg }}</p>
+            {% endfor %}
+        {% endif %}
+        <form action="/login" method="post">
+            {% csrf_token %}
+            Email: <input type="text" name="email">
+            <br>
+            Password: <input type="password" name="password">
+            <br>
+            <input type="submit" value="Login">
+        </form>
+        <a href="/show_register">Don't have account? Click here to Register</a>
+        <br>
+        <a href="/">Home</a>
+    </div>    
+</body>
+</html>

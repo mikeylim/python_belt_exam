@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>    
+    <form action="appointment/edit" method="post">
+        {% csrf_token %}
+        <label for="tasks">Tasks:</label><input type="text" name="tasks">
+        <label for="status">Status:</label>
+        <select name="status">
+            <option value="done">Done</option>
+            <option value="pending">Pending</option>
+            <option value="missed">Missed</option>
+        </select>
+        <label for="date">Date:</label><input type="date" name="date">
+        <label for="time">Time:</label><input type="time" name="time">
+        <input type="submit" value="Update">
+    </form>   
+</body>
+</html>
